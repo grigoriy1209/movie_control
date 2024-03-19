@@ -1,11 +1,11 @@
 import {Header} from "../components/Header/Header";
-import {Outlet} from "react-router-dom";
+import {Movies} from "../components/MovieContainer/Movies";
 
 const MoviesPage = () => {
     return (
         <div>
             <Header/>
-            <Outlet/>
+         <Movies/>
         </div>
     );
 };

@@ -1,25 +1,16 @@
-import {configureStore, Tuple} from "@reduxjs/toolkit";
+import {combineReducers, configureStore, Tuple} from "@reduxjs/toolkit";
 
-import {setupListeners} from "@reduxjs/toolkit/query";
-import {apiService} from "../services/ApiService";
 import {movieReducer} from "./slice/movieSlice";
+import {moviesApi} from "../services/moviesApi";
 
+const rootReducer = combineReducers({
+    movieReducer,
+    [moviesApi.reducerPath]:moviesApi.reducer
+}
+)
 export const store = configureStore({
-    reducer: {
-        movies:movieReducer,
-        // genres:genreReducer
-        // Додати згенерований редуктор як певний зріз верхнього рівня
-        middleware: (getDefaultMiddleware) => new Tuple(apiService.middleware)
-    },
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware().concat(moviesApi.middleware)
+});
 
-    // middleware:()=> getDefaultMiddleware().concat(apiService.middleware), додати значення з services
-    // Додавання проміжного програмного забезпечення api уможливлює кешування, валідацію, опитування,
-    // та інші корисні можливості `rtk-query`.
-})
-
-
-// необов'язковий, але необхідний для поведінки refetchOnFocus/refetchOnReconnect
-// див. документацію `setupListeners` - приймає необов'язковий зворотний виклик як 2-й аргумент для кастомізації
-setupListeners(store.dispatch)
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch

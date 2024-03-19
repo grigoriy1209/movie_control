@@ -16,5 +16,4 @@ export interface IMovie{
     backdrop_path:string
     genre_ids:number
 
-
 }
