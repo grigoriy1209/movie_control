@@ -9,7 +9,7 @@ const Movies = () => {
     return (
         <div>
             {
-            // data && data.results.map((movie)=><Movie movie={movie} key={movie.id}/>)
+            data && data.results.map((movie)=><Movie movie={movie} key={movie.id}/>)
             }
         </div>
     );
