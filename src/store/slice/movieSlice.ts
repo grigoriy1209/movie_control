@@ -3,21 +3,34 @@ import {IPaginator} from "../../iinterFaces/paginatorInterFace";
 import {IMovie} from "../../iinterFaces/movieInterFace";
 import {moviesApi} from "../../services/moviesApi";
 
+
 interface IState {
     movies: IMovie[]
-    genres: string[]
+    // genres: string[]
+    total_pages: number
+    total_results: number
+    page: number
+    year: number | undefined
+    searchMethod: string
+
+
 }
 
 const initialState: IState = {
     movies: [],
-    genres: []
+    // genres: [],
+    page: 1,
+    total_pages: 0,
+    total_results: 0,
+    year: undefined,
+    searchMethod: ''
 };
 export const getAllMovies = createAsyncThunk<IPaginator<IMovie>, void>(
     'movies/getAllMovies',
     async (_, {rejectWithValue}) => {
         try {
             // @ts-ignore
-            const {data} = await moviesApi.endpoints.getMovies()
+            const {data} = await moviesApi.endpoints.getMovies(page)
             return {
                 ...data,
                 page: 1
@@ -46,15 +59,21 @@ const movieSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(getAllMovies.fulfilled,(state, action)=>{
-                state.movies = action.payload.results
+            .addCase(getAllMovies.fulfilled, (state, action) => {
+                const {total_pages,total_results,results,page}=action.payload
+                state.total_pages = total_pages
+                state.total_results = total_results
+                state.movies = results
+                state.page = page
+                state.searchMethod = 'getAllMovies'
+
             })
-            // .addCase(getAllGenres.fulfilled,(state, action)=>{
-            //     state.genres = action.payload
-            // })
+        // .addCase(getAllGenres.fulfilled,(state, action)=>{
+        //     state.genres = action.payload
+        // })
     }
 })
-const {reducer:movieReducer, actions} = movieSlice
+const {reducer: movieReducer, actions} = movieSlice
 
 const movieActions = {
     ...actions,

@@ -1,12 +1,13 @@
 import {IGenre} from "./genreInterFace";
 
 export interface IMovie{
+    data:[]
     id: number
     nextPage: number | null
     page: string
     poster_path: string
     prevPage: number | null
-    results: [];
+    results: string[];
     title: string;
     vote_average: number
     movieDetails:[]
@@ -16,4 +17,10 @@ export interface IMovie{
     backdrop_path:string
     genre_ids:number
 
+}
+export interface IData {
+    page: number
+    results: IMovie[]
+    total_pages: number,
+    total_results: number
 }

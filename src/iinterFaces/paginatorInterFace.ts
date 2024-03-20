@@ -1,7 +1,7 @@
 export interface IPaginator<T>{
-    prev:string;
-    next:string;
+    page:number
     total_pages: number;
     total_results:number;
     results: T[]
+    data:[]
 }
