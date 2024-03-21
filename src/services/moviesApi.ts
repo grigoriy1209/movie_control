@@ -2,6 +2,7 @@ import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 
 import {IMovie} from "../iinterFaces/movieInterFace";
 import {IGenre} from "../iinterFaces/genreInterFace";
+import {baseURL} from "../constants/urls";
 
 
 const BearerToken =
@@ -9,7 +10,7 @@ const BearerToken =
 export const moviesApi = createApi({
     reducerPath: 'moviesApi',
     baseQuery: fetchBaseQuery({
-        baseUrl:'https://api.themoviedb.org/3',
+        baseUrl:baseURL,
         prepareHeaders: (headers, {getState}) => {
             headers.set('Authorization', BearerToken);
             return headers
@@ -17,9 +18,15 @@ export const moviesApi = createApi({
     }),
     endpoints: (builder) => ({
         getMovies: builder.query<IMovie[],number>({
-            query: (page=1) => ({
-                url:`/discover/movie?page = ${page }`
+            query: (page) => ({
+                url:`/discover/movie?page=${page}`
             }),
+        }),
+        getById:builder.query<IMovie[],number>({
+            query:(id)=>({
+                url:`/search/collection?query={search_query}=${id}
+ ${id}`
+            }) ,
         }),
         getGenres: builder.query<IGenre[], void>({
             query: () => ({

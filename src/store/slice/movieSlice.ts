@@ -12,6 +12,7 @@ interface IState {
     page: number
     year: number | undefined
     searchMethod: string
+    results:string[]
 
 
 }
@@ -23,17 +24,18 @@ const initialState: IState = {
     total_pages: 0,
     total_results: 0,
     year: undefined,
-    searchMethod: ''
+    searchMethod: '',
+    results:[]
 };
 export const getAllMovies = createAsyncThunk<IPaginator<IMovie>, void>(
     'movies/getAllMovies',
-    async (_, {rejectWithValue}) => {
+    async (page, {rejectWithValue}) => {
         try {
             // @ts-ignore
-            const {data} = await moviesApi.endpoints.getMovies(page)
+            const {data} = await moviesApi.endpoints.getMovies({page})
             return {
                 ...data,
-                page: 1
+                page:page
             }
         } catch (e) {
             return rejectWithValue(e)

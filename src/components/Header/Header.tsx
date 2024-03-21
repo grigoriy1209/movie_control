@@ -2,6 +2,7 @@
 import {Link, useNavigate} from "react-router-dom";
 import {AppBar, Button, Container, Toolbar, Typography} from "@mui/material";
 
+
 const Header = () => {
 
     // const dispatch = useAppDispatch();
@@ -19,7 +20,7 @@ const Header = () => {
             }>
                 <Toolbar disableGutters>
                     <Typography
-                        variant="h5"
+                        variant="h4"
                         noWrap
                         sx={{
                             mr: 2,
@@ -30,10 +31,10 @@ const Header = () => {
                             color: 'grey',
                         }}
                     >
-                        Movie
                     </Typography>
                 </Toolbar>
                 <Toolbar>
+                    MOVIE DB
                     <Button
                         color={"inherit"}
                         onClick={()=>navigate('/movies')}
@@ -47,6 +48,7 @@ const Header = () => {
                     >
                         Genres
                     </Button>
+                    <input color={"red"}/>
                 </Toolbar>
             </Container>
         </AppBar>
