@@ -4,18 +4,13 @@ import {AppBar, Button, Container, Toolbar, Typography} from "@mui/material";
 
 
 const Header = () => {
-
-    // const dispatch = useAppDispatch();
     const navigate = useNavigate();
-
-
     return (
         <AppBar position="static" color={'warning'}>
             <Container maxWidth="xl" sx={
                 {
                     'display':'flex',
                     'justifyContent':'space-between'
-
                 }
             }>
                 <Toolbar disableGutters>

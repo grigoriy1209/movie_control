@@ -18,19 +18,18 @@ export const moviesApi = createApi({
     }),
     endpoints: (builder) => ({
         getMovies: builder.query<IMovie[],number>({
-            query: (page) => ({
+            query: (page=1) => ({
                 url:`/discover/movie?page=${page}`
             }),
         }),
         getById:builder.query<IMovie[],number>({
             query:(id)=>({
-                url:`/search/collection?query={search_query}=${id}
- ${id}`
+                url:`/search/collection?query={search_query}=${id}`
             }) ,
         }),
         getGenres: builder.query<IGenre[], void>({
             query: () => ({
-                url:`/genres/movie/list`
+                url:`/genre/movie/list`
         }),
         }),
     }),

@@ -3,7 +3,6 @@ import {IPaginator} from "../../iinterFaces/paginatorInterFace";
 import {IMovie} from "../../iinterFaces/movieInterFace";
 import {moviesApi} from "../../services/moviesApi";
 
-
 interface IState {
     movies: IMovie[]
     // genres: string[]
@@ -13,14 +12,12 @@ interface IState {
     year: number | undefined
     searchMethod: string
     results:string[]
-
-
 }
 
 const initialState: IState = {
     movies: [],
     // genres: [],
-    page: 1,
+    page: 5,
     total_pages: 0,
     total_results: 0,
     year: undefined,
@@ -42,18 +39,7 @@ export const getAllMovies = createAsyncThunk<IPaginator<IMovie>, void>(
         }
     }
 )
-// export const getAllGenres = createAsyncThunk<string[]>(
-//     'movies/getAllGenres',
-//     async (_,{rejectWithValue})=>{
-//         try {
-//             // @ts-ignore
-//             const {data}=await moviesApi.endpoints.getGenres()
-//             return data.genres.map((genre:{id:number, name:string})=>genre.name)
-//         }catch (e) {
-//             return rejectWithValue(e)
-//         }
-//     }
-// )
+
 
 const movieSlice = createSlice({
     name: 'movieSlice',
@@ -70,9 +56,7 @@ const movieSlice = createSlice({
                 state.searchMethod = 'getAllMovies'
 
             })
-        // .addCase(getAllGenres.fulfilled,(state, action)=>{
-        //     state.genres = action.payload
-        // })
+
     }
 })
 const {reducer: movieReducer, actions} = movieSlice
@@ -80,7 +64,7 @@ const {reducer: movieReducer, actions} = movieSlice
 const movieActions = {
     ...actions,
     getAllMovies,
-    // getAllGenres
+
 }
 export {
     movieActions,
