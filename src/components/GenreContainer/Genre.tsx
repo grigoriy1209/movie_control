@@ -1,5 +1,5 @@
 import {FC, PropsWithChildren} from "react";
-import {IGenre} from "../../iinterFaces/genreInterFace";
+import {IGenre} from "../../interFaces/genreInterFace";
 
 interface IProps extends PropsWithChildren{
     genre:IGenre

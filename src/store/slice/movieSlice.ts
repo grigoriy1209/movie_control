@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {IPaginator} from "../../iinterFaces/paginatorInterFace";
-import {IMovie} from "../../iinterFaces/movieInterFace";
+import {IPaginator} from "../../interFaces/paginatorInterFace";
+import {IMovie} from "../../interFaces/movieInterFace";
 import {moviesApi} from "../../services/moviesApi";
 
 interface IState {
@@ -17,14 +17,14 @@ interface IState {
 const initialState: IState = {
     movies: [],
     // genres: [],
-    page: 5,
+    page: 1,
     total_pages: 0,
     total_results: 0,
     year: undefined,
     searchMethod: '',
     results:[]
 };
-export const getAllMovies = createAsyncThunk<IPaginator<IMovie>, void>(
+export const getAllMovies = createAsyncThunk<IPaginator<IMovie>, number>(
     'movies/getAllMovies',
     async (page, {rejectWithValue}) => {
         try {
@@ -32,7 +32,7 @@ export const getAllMovies = createAsyncThunk<IPaginator<IMovie>, void>(
             const {data} = await moviesApi.endpoints.getMovies({page})
             return {
                 ...data,
-                page:page
+                page
             }
         } catch (e) {
             return rejectWithValue(e)
@@ -52,7 +52,7 @@ const movieSlice = createSlice({
                 state.total_pages = total_pages
                 state.total_results = total_results
                 state.movies = results
-                state.page = page
+                state.page = page || 1
                 state.searchMethod = 'getAllMovies'
 
             })

@@ -15,7 +15,7 @@ export interface IMovie{
     overview:string
     genres:IGenre[]
     backdrop_path:string
-    genre_ids:number
+    genre_ids:number[]
 
 }
 export interface IData {

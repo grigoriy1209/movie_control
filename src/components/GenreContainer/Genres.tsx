@@ -1,19 +1,15 @@
-
 import {moviesApi} from "../../services/moviesApi";
+import {IGenre} from "../../interFaces/genreInterFace";
 import {Genre} from "./Genre";
 
-import {IGenre} from "../../iinterFaces/genreInterFace";
-
 const Genres = () => {
-    const {data:genresData} = moviesApi.useGetGenresQuery<IGenre>()
-    console.log(genresData)
-    const genres = genresData || []
+    const {data:genres} = moviesApi.useGetGenresQuery()
     console.log(genres)
     return (
         <div>
-            {/*{*/}
-            {/*   genresData  genresData.map((genre :IGenre)=>< Genre key={genre.id} genre={genre}/>)*/}
-            {/*}*/}
+            {
+                genres && genres.map((genre) => <Genre genre={genre} key={genre.id}/>)
+            }
         </div>
     );
 };

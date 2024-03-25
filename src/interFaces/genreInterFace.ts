@@ -1,7 +1,8 @@
 export interface IGenre{
-    id:number
+    id:string
     name:string
-    ids:number
+    ids:string
     data:any[]
     genres:any[]
+    genreId:number
 }

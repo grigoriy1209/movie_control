@@ -1,7 +1,7 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 
-import {IMovie} from "../iinterFaces/movieInterFace";
-import {IGenre} from "../iinterFaces/genreInterFace";
+import {IMovie} from "../interFaces/movieInterFace";
+import {IGenre} from "../interFaces/genreInterFace";
 import {baseURL} from "../constants/urls";
 
 
@@ -17,9 +17,12 @@ export const moviesApi = createApi({
         }
     }),
     endpoints: (builder) => ({
-        getMovies: builder.query<IMovie[],number>({
-            query: (page=1) => ({
-                url:`/discover/movie?page=${page}`
+        getMovies: builder.query<IMovie[],void |{ page:number}   >({
+            query: (page) => ({
+                url:`/discover/movie?page=${page || 1}`,
+                // params:{
+                //     page:page
+                // }
             }),
         }),
         getById:builder.query<IMovie[],number>({
